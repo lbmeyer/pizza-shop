@@ -32,7 +32,7 @@ export const Food = styled(Title)`
     cursor: pointer; 
     filter: contrast(100%); 
     margin-top: 0px; 
-    /* margin-bottom: 5px;  */
+    margin-bottom: 5px; 
     box-shadow: 0px 5px 10px 0px grey;
   }
 `;
