@@ -42,10 +42,20 @@ export const foodItems = [
     section: "Sides",
     price: 1
   },
-  {
-    price: 1,
-    name: "Soda",
-    section: "Drinks",
-    choices: ["Coke", "Sprite", "Root Beer"]
-  }
+  // {
+  //   price: 1,
+  //   name: "Soda",
+  //   section: "Drinks",
+  //   choices: ["Coke", "Sprite", "Root Beer"]
+  // }
 ];
+
+export const foods = foodItems.reduce((res, food) => {
+  // if we don't have a "section" inside our empty object 
+  if(!res[food.section]) {
+    // add in food.section as the key
+    res[food.section] = [];
+  }
+  res[food.section].push(food);
+  return res;
+}, {});
