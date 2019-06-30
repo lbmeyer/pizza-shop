@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { foods } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel } from './FoodGrid';
 
-// import { foods } from "../Data/FoodData";
-// import { Food, FoodGrid, FoodLabel } from "./FoodGrid";
 // import { formatPrice } from "../Data/FoodData";
 
 const MenuStyled = styled.div`
@@ -12,7 +10,8 @@ const MenuStyled = styled.div`
   margin: 0px 400px 50px 20px;
 `;
 
-export function Menu({ setOpenFood }) {
+export function Menu({ setOpenFood, setIsOpen }) {
+
   // console.log(foods);
   return (
     <MenuStyled>
@@ -21,10 +20,11 @@ export function Menu({ setOpenFood }) {
         <>
           <h1>{sectionName}</h1>
           <FoodGrid>
-            {foods.map(food => (
+            {foods.map((food) => (
               <Food
                 img={food.img}
                 onClick={() => {
+                  setIsOpen();
                   setOpenFood(food);
                 }}
               >
