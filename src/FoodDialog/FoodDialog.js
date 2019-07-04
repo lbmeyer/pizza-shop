@@ -66,13 +66,23 @@ const DialogBannerName = styled(FoodLabel)`
   padding: 5px 40px;
 `;
 
-export function FoodDialog({openFood, setOpenFood}) {
+export function FoodDialog({ openFood, setOpenFood, setOrders, orders }) {
   function close() {
     // pass in empty arguments to setOpenFood. openFood will be empty, 
     // thereby returning null in if statement below (and not our modal)
     setOpenFood();
   }
   if (!openFood) return null;
+
+  const order = {
+    name: openFood.name
+  }
+
+  function addToOrder() {
+    setOrders([...orders, order]);
+    close();
+  }
+
   return (
     <>
       <DialogShadow onClick={close} />
@@ -81,10 +91,10 @@ export function FoodDialog({openFood, setOpenFood}) {
           <DialogBannerName>{openFood.name}</DialogBannerName>
         </DialogBanner>
         <DialogContent>
-        
+  
         </DialogContent>
         <DialogFooter>
-          <ConfirmButton>Confirm</ConfirmButton>
+          <ConfirmButton onClick={addToOrder}>Add to Order</ConfirmButton>
         </DialogFooter>
       </Dialog>
     </>
