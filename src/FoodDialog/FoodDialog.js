@@ -4,7 +4,7 @@ import { FoodLabel } from '../Menu/FoodGrid';
 import { pizzaRed } from '../Styles/colors';
 import { Title } from '../Styles/title';
 import { formatPrice } from '../Data/FoodData';
-import { QuantityInput} from './QuantityInput';
+import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
 
 const Dialog = styled.div`
@@ -33,7 +33,7 @@ export const DialogFooter = styled.div`
 `;
 
 export const ConfirmButton = styled(Title)`
-  font-family: 'Righteous',cursive;
+  font-family: 'Righteous', cursive;
   margin: 10px;
   padding: 10px 30px;
   color: #fff;
@@ -59,7 +59,8 @@ const DialogBanner = styled.div`
   min-height: 200px;
   margin-bottom: 20px;
   ${({ img }) => `background-image: url(${img});`}
-  /* ${({ img }) => (img ? `background-image: url(${img});` : `min-height: 75px;`)} */
+  /* ${({ img }) =>
+    img ? `background-image: url(${img});` : `min-height: 75px;`} */
   background-position: center;
   background-size: cover;
 `;
@@ -78,7 +79,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   const quantity = useQuantity(openFood && openFood.quantity);
 
   function close() {
-    // pass in empty arguments to setOpenFood. openFood will be empty, 
+    // pass in empty arguments to setOpenFood. openFood will be empty,
     // thereby returning null in if statement below (and not our modal)
     setOpenFood();
   }
@@ -87,7 +88,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   const order = {
     ...openFood,
     quantity: quantity.value
-  }
+  };
 
   function addToOrder() {
     setOrders([...orders, order]);
@@ -102,7 +103,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
           <DialogBannerName>{openFood.name}</DialogBannerName>
         </DialogBanner>
         <DialogContent>
-          <QuantityInput quantity={quantity} /> 
+          <QuantityInput quantity={quantity} />
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={addToOrder}>
@@ -116,5 +117,5 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
 
 export function FoodDialog(props) {
   if (!props.openFood) return null;
-    return <FoodDialogContainer {...props} /> 
+  return <FoodDialogContainer {...props} />;
 }
