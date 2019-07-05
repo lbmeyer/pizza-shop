@@ -4,6 +4,8 @@ import { FoodLabel } from '../Menu/FoodGrid';
 import { pizzaRed } from '../Styles/colors';
 import { Title } from '../Styles/title';
 import { formatPrice } from '../Data/FoodData';
+import { QuantityInput} from './QuantityInput';
+import { useQuantity } from '../Hooks/useQuantity';
 
 const Dialog = styled.div`
   width: 500px;
@@ -20,6 +22,7 @@ const Dialog = styled.div`
 export const DialogContent = styled.div`
   overflow: auto; /* Make content in Dialog box scrollable  */
   min-height: 100px;
+  padding: 0px 40px;
 `;
 
 export const DialogFooter = styled.div`
@@ -67,7 +70,13 @@ const DialogBannerName = styled(FoodLabel)`
   padding: 5px 40px;
 `;
 
-export function FoodDialog({ openFood, setOpenFood, setOrders, orders }) {
+export function getPrice(order) {
+  return order.quantity * order.price;
+}
+
+function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
+  const quantity = useQuantity(openFood && openFood.quantity);
+
   function close() {
     // pass in empty arguments to setOpenFood. openFood will be empty, 
     // thereby returning null in if statement below (and not our modal)
@@ -76,7 +85,8 @@ export function FoodDialog({ openFood, setOpenFood, setOrders, orders }) {
   if (!openFood) return null;
 
   const order = {
-    ...openFood
+    ...openFood,
+    quantity: quantity.value
   }
 
   function addToOrder() {
@@ -92,14 +102,19 @@ export function FoodDialog({ openFood, setOpenFood, setOrders, orders }) {
           <DialogBannerName>{openFood.name}</DialogBannerName>
         </DialogBanner>
         <DialogContent>
-  
+          <QuantityInput quantity={quantity} /> 
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={addToOrder}>
-            Add to Order: {formatPrice(openFood.price)}
+            Add to Order: {formatPrice(getPrice(order))}
           </ConfirmButton>
         </DialogFooter>
       </Dialog>
     </>
   );
+}
+
+export function FoodDialog(props) {
+  if (!props.openFood) return null;
+    return <FoodDialogContainer {...props} /> 
 }
