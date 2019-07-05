@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { formatPrice } from '../Data/FoodData';
+// import { Toppings } from '../FoodDialog/Toppings';
 import {
   DialogContent,
   DialogFooter,
@@ -38,6 +39,11 @@ const OrderItem = styled.div`
   justify-content: space-between;
 `;
 
+const DetailItem = styled.div`
+  color: gray;
+  font-size: 10px;
+`;
+
 const OrderFooter = styled.div``;
 
 export function Order({ orders }) {
@@ -63,6 +69,13 @@ export function Order({ orders }) {
                 <div></div>
                 <div>{formatPrice(getPrice(order))}</div>
               </OrderItem>
+              <DetailItem>
+                {order.toppings
+                  .filter(topping => topping.checked)
+                  .map(topping => topping.name)
+                  .join(", ")
+                }
+              </DetailItem>
             </OrderContainer>
           ))}
           <OrderContainer>
