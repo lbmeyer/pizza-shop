@@ -121,25 +121,34 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   const quantity = useQuantity(openFood && openFood.quantity);
   const toppings = useToppings(openFood.toppings);
   const choiceRadio = useChoice(openFood.choice);
+  const isEditing = openFood.index > -1;
 
+  
   function close() {
     // pass in empty arguments to setOpenFood. openFood will be empty,
     // thereby returning null in if statement below (and not our modal)
     setOpenFood();
   }
   if (!openFood) return null;
-
+  
   const order = {
     ...openFood, 
     quantity: quantity.value,
     toppings: (hasToppings(openFood) ? toppings.toppings : null),
     choice: choiceRadio.value
   }
+  
+  function editOrder() {
+    const newOrders = [...orders];
+    newOrders[openFood.index] = order;
+    setOrders(newOrders);
+    close();
+  }
 
-function addToOrder() {
-  setOrders([...orders, order]);
-  close();
-}
+  function addToOrder() {
+    setOrders([...orders, order]);
+    close();
+  }
 
   return (
     <>
@@ -159,8 +168,9 @@ function addToOrder() {
           {openFood.choices && <Choices openFood={openFood} choiceRadio={choiceRadio} />}
         </DialogContent>
         <DialogFooter>
-          <ConfirmButton onClick={addToOrder} disabled={openFood.choices && !choiceRadio.value} >
-            Add to Order: {formatPrice(getPrice(order, openFood))}
+          <ConfirmButton onClick={isEditing ? editOrder : addToOrder} disabled={openFood.choices && !choiceRadio.value} >
+            {isEditing ? `Update Order: ` : `Add to Order: `} 
+            {formatPrice(getPrice(order, openFood))}
           </ConfirmButton>
         </DialogFooter>
       </Dialog>
