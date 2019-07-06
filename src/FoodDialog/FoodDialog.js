@@ -75,15 +75,36 @@ const DialogBannerName = styled(FoodLabel)`
 
 const pricePerTopping = 0.5;
 
+// const defaultToppings = [
+//   {name: "Extra Cheese1", checked: false},
+//   {name: "Pepperoni", checked: false},
+//   {name: "Sausage", checked: false},
+//   {name: "Onions", checked: false},
+//   {name: "Peppers", checked: false},
+//   {name: "Pineapple", checked: false},
+//   {name: "Ham", checked: false},
+//   {name: "Spinach", checked: false},
+//   {name: "Artichokes", checked: false},
+//   {name: "Mushrooms", checked: false},
+//   {name: "Anchovies", checked: false},
+// ]
+
+
 export function getPrice(order) {
+  // if order has toppings, we add up all the costs of toppings + cost of pizza. 
+  // if not, orderPrice is simply the cost of non-pizza item
+  const orderPrice = order.toppings ? 
+    (order.price + order.toppings.filter(topping => topping.checked).length * pricePerTopping) 
+    : order.price
+  
   return (
-    order.quantity *
-    (order.price +
-      order.toppings.filter(topping => topping.checked).length * pricePerTopping)
+    order.quantity * orderPrice
   );
 }
 
+// only show toppings if order pizza
 function hasToppings(food) {
+  // debugger;
   return food.section === 'Pizza';
 }
 
@@ -99,15 +120,16 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   if (!openFood) return null;
 
   const order = {
-    ...openFood,
+    ...openFood, 
     quantity: quantity.value,
-    toppings: toppings.toppings
-  };
-
-  function addToOrder() {
-    setOrders([...orders, order]);
-    close();
+    // toppings: toppings.toppings
+    toppings: (hasToppings(openFood) ? toppings.toppings : null)
   }
+
+function addToOrder() {
+  setOrders([...orders, order]);
+  close();
+}
 
   return (
     <>
@@ -127,7 +149,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={addToOrder}>
-            Add to Order: {formatPrice(getPrice(order))}
+            Add to Order: {formatPrice(getPrice(order, openFood))}
           </ConfirmButton>
         </DialogFooter>
       </Dialog>

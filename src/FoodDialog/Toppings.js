@@ -21,9 +21,10 @@ export function Toppings({ toppings, checkTopping }) {
       {toppings.map((topping, i) => (
         <CheckboxLabel>
           <ToppingCheckbox
+            key={i}
             type="checkbox"
             checked={topping.checked}
-            onClick={() => {
+            onChange={() => {
               checkTopping(i);
             }}
           />

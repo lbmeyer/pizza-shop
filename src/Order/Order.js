@@ -69,13 +69,15 @@ export function Order({ orders }) {
                 <div></div>
                 <div>{formatPrice(getPrice(order))}</div>
               </OrderItem>
-              <DetailItem>
+              {order.toppings ? (
+                <DetailItem>
                 {order.toppings
                   .filter(topping => topping.checked)
                   .map(topping => topping.name)
                   .join(", ")
                 }
               </DetailItem>
+              ): null}
             </OrderContainer>
           ))}
           <OrderContainer>

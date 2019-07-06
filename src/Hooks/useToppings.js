@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 export function useToppings(defaultTopping) {
+  // we use getDefaultToppings() to keep a fresh list of "unchecked"
+  // toppings every time we open a pizza modal
   const [toppings, setToppings] = useState(defaultTopping || getDefaultToppings());
 
   function checkTopping(index) {
