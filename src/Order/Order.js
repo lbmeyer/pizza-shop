@@ -60,39 +60,39 @@ export function Order({ orders }) {
         <OrderContent>Your Order's looking pretty empty</OrderContent>
       ) : (
         <OrderContent>
-          <OrderContainer>Your Order: </OrderContainer>{" "}
+          <OrderContainer>Your Order: </OrderContainer>{' '}
           {orders.map(order => (
             <OrderContainer>
               <OrderItem>
                 <div>{order.quantity}</div>
                 <div>{order.name}</div>
-                <div></div>
+                <div />
                 <div>{formatPrice(getPrice(order))}</div>
               </OrderItem>
               {order.toppings ? (
                 <DetailItem>
-                {order.toppings
-                  .filter(topping => topping.checked)
-                  .map(topping => topping.name)
-                  .join(", ")
-                }
-              </DetailItem>
-              ): null}
+                  {order.toppings
+                    .filter(topping => topping.checked)
+                    .map(topping => topping.name)
+                    .join(', ')}
+                </DetailItem>
+              ) : null}
+              {order.choice && <DetailItem>{order.choice}</DetailItem>}
             </OrderContainer>
           ))}
           <OrderContainer>
             <OrderItem>
-              <div/>
+              <div />
               <div>Sub-Total</div>
               <div>{formatPrice(subtotal)}</div>
             </OrderItem>
             <OrderItem>
-              <div/>
+              <div />
               <div>Tax</div>
               <div>{formatPrice(tax)}</div>
             </OrderItem>
             <OrderItem>
-              <div/>
+              <div />
               <div>Total</div>
               <div>{formatPrice(total)}</div>
             </OrderItem>
