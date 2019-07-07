@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { foods, formatPrice } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel } from './FoodGrid';
+import { pizzaRed } from '../Styles/colors';
 
 // import { foods } from "../Data/FoodData";
 // import { Food, FoodGrid, FoodLabel } from "./FoodGrid";
@@ -10,6 +11,12 @@ import { Food, FoodGrid, FoodLabel } from './FoodGrid';
 const MenuStyled = styled.div`
   height: 1000px;
   margin: 0px 400px 50px 20px;
+`;
+
+const FoodPrice = styled.div`
+  font-size: 14px;
+  color: ${pizzaRed}
+  margin-top: 5px;
 `;
 
 export function Menu({ setOpenFood }) {
@@ -30,7 +37,7 @@ export function Menu({ setOpenFood }) {
               >
                 <FoodLabel>
                   <div>{food.name}</div>
-                  <div>{formatPrice(food.price)}</div>
+                  <FoodPrice>{formatPrice(food.price)}</FoodPrice>
                 </FoodLabel>
               </Food>
             ))}

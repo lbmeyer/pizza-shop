@@ -11,19 +11,22 @@ export const FoodGrid = styled.div`
 
 export const FoodLabel = styled(Title)`
   position: absolute; /* or use display: inline-block */
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
+  bottom: 0px;
+  right: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
 `;
 
 export const Food = styled.div`
-  height: 100px;
+  height: 200px;
+  width: 500px;
   padding: 10px; 
   font-size: 20px; 
   background-image: ${({img}) => `url(${img});` } ;
   background-position: center;
   background-size: cover;
   filter: contrast(75%);
-  border-radius: 7px; 
+  /* border-radius: 7px;  */
   margin-top: 5px; 
   transition-property: box-shadow margin-top filter; 
   transition-duration: .1s; 

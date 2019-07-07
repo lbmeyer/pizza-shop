@@ -80,6 +80,8 @@ const DialogBannerName = styled(FoodLabel)`
   font-size: 30px;
   padding: 5px 40px;
   top: ${({img}) => (img ? `100px` : `20px`)};
+  bottom: inherit;
+    right: 0;
 `;
 
 const pricePerTopping = 0.5;
