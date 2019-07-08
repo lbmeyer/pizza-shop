@@ -8,9 +8,12 @@ import { Order } from './Order/Order';
 import { useOpenFood } from './Hooks/useOpenFood';
 import { useOrders } from './Hooks/useOrders';
 import { useTitle } from './Hooks/useTitle';
+import useToggle from './Hooks/useToggle';
 
 
 function App() {
+  // const [isOpen, setIsOpen] = useToggle(false);
+  const openCart = useToggle(false);
   const openFood = useOpenFood();
   const orders = useOrders();
   useTitle({...openFood, ...orders});
@@ -19,8 +22,9 @@ function App() {
     <>
       <GlobalStyle />
       <FoodDialog {...openFood} {...orders} />
-      <Navbar />
-      <Order {...orders} {...openFood}/>
+      {/* <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/> */}
+      <Navbar {...openCart} {...orders}/>
+      <Order {...orders} {...openFood} {...openCart}/>
       <Banner />
       {/* <div>{openFood ? openFood.name : openFood}</div> */}
       <Menu {...openFood}/>

@@ -9,13 +9,15 @@ import { pizzaRed } from '../Styles/colors';
 // import { formatPrice } from "../Data/FoodData";
 
 const MenuStyled = styled.div`
-  height: 1000px;
-  margin: 0px 400px 50px 20px;
+  /* height: 1000px; */
+  margin: 0 auto;
+  width: 80%;
+  padding-bottom: 80px;
 `;
 
 const FoodPrice = styled.div`
   font-size: 14px;
-  color: ${pizzaRed}
+  color: ${pizzaRed};
   margin-top: 5px;
 `;
 

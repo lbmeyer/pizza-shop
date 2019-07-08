@@ -1,1 +1,1 @@
-export const pizzaRed = "#f44336";
+export const pizzaRed = "#ff5722";

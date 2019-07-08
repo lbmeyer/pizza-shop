@@ -15,7 +15,7 @@ const Dialog = styled.div`
   width: 500px;
   background: #fff;
   position: fixed;
-  top: 75px;
+  top: 20%;
   z-index: 5;
   max-height: calc(100% - 100px);
   left: calc(50% - 250px); /* center on page */
@@ -30,7 +30,6 @@ export const DialogContent = styled.div`
 `;
 
 export const DialogFooter = styled.div`
-  box-shadow: 0px -2px 10px 0 grey;
   height: 60px;
   display: flex;
   justify-content: center;
@@ -81,7 +80,6 @@ const DialogBannerName = styled(FoodLabel)`
   padding: 5px 40px;
   top: ${({img}) => (img ? `100px` : `20px`)};
   bottom: inherit;
-    right: 0;
 `;
 
 const pricePerTopping = 0.5;
