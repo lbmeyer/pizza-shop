@@ -17,14 +17,17 @@ const IncrementContainer = styled.div`
 `;
 
 const IncrementButton = styled.div`
-  width: 23px;
+  width: 25px;
+  height: 25px;
   color: ${pizzaRed};
   font-size: 20px;
   text-align: center;
   cursor: pointer;
+  vertical-align: center;
   line-height: 23px;
   margin: 0px 10px;
   border: 1px solid ${pizzaRed};
+  border-radius: 50%;
   ${({ disabled }) =>
     disabled &&
     `opacity: 0.5; 

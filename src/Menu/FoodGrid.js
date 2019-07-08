@@ -5,34 +5,35 @@ export const FoodGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  padding-bottom: 40px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
 `;
 
 
 export const FoodLabel = styled(Title)`
+  font-family: 'Lato', sans-serif;
   position: absolute; /* or use display: inline-block */
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 export const Food = styled.div`
-  height: 100px;
-  padding: 10px; 
+  height: 200px;
+  width: 100%;
   font-size: 20px; 
   background-image: ${({img}) => `url(${img});` } ;
   background-position: center;
   background-size: cover;
-  filter: contrast(75%);
-  border-radius: 7px; 
-  margin-top: 5px; 
-  transition-property: box-shadow margin-top filter; 
-  transition-duration: .1s; 
-  box-shadow: 0px 0px 2px 0px grey;
+  filter: contrast(80%);
   &:hover {
     cursor: pointer; 
     filter: contrast(100%); 
-    margin-top: 0px; 
-    margin-bottom: 5px; 
-    box-shadow: 0px 5px 10px 0px grey;
   }
 `;
