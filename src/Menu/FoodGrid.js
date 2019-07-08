@@ -21,6 +21,7 @@ export const FoodLabel = styled(Title)`
   background-color: rgba(255, 255, 255, 0.9);
   padding: 10px 20px;
   font-size: 18px;
+  font-weight: 600;
 `;
 
 export const Food = styled.div`
