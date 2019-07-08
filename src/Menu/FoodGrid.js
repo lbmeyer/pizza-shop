@@ -6,6 +6,10 @@ export const FoodGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
 `;
 
 
