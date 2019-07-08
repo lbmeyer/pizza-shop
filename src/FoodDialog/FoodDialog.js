@@ -33,6 +33,7 @@ export const DialogFooter = styled.div`
   height: 60px;
   display: flex;
   justify-content: center;
+  background: white;
 `;
 
 export const ConfirmButton = styled(Title)`
@@ -46,13 +47,13 @@ export const ConfirmButton = styled(Title)`
   cursor: pointer;
   display: inline-block;
   background: ${pizzaRed};
-  ${({disabled}) => disabled &&
-  `
+  ${({ disabled }) =>
+    disabled &&
+    `
     opacity: .5;
     background-color: grey;
     pointer-events: none; 
-  `
-  }
+  `}
 `;
 
 const DialogShadow = styled.div`
@@ -69,8 +70,7 @@ const DialogBanner = styled.div`
   min-height: 200px;
   margin-bottom: 20px;
   /* ${({ img }) => `background-image: url(${img});`} */
-  ${({ img }) =>
-    img ? `background-image: url(${img});` : `min-height: 75px;`}
+  ${({ img }) => (img ? `background-image: url(${img});` : `min-height: 75px;`)}
   background-position: center;
   background-size: cover;
 `;
@@ -78,7 +78,7 @@ const DialogBanner = styled.div`
 const DialogBannerName = styled(FoodLabel)`
   font-size: 30px;
   padding: 5px 40px;
-  top: ${({img}) => (img ? `100px` : `20px`)};
+  top: ${({ img }) => (img ? `100px` : `20px`)};
   bottom: inherit;
 `;
 
@@ -98,17 +98,15 @@ const pricePerTopping = 0.5;
 //   {name: "Anchovies", checked: false},
 // ]
 
-
 export function getPrice(order) {
-  // if order has toppings, we add up all the costs of toppings + cost of pizza. 
+  // if order has toppings, we add up all the costs of toppings + cost of pizza.
   // if not, orderPrice is simply the cost of non-pizza item
-  const orderPrice = order.toppings ? 
-    (order.price + order.toppings.filter(topping => topping.checked).length * pricePerTopping) 
-    : order.price
-  
-  return (
-    order.quantity * orderPrice
-  );
+  const orderPrice = order.toppings
+    ? order.price +
+      order.toppings.filter(topping => topping.checked).length * pricePerTopping
+    : order.price;
+
+  return order.quantity * orderPrice;
 }
 
 // only show toppings if order pizza
@@ -123,21 +121,22 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
   const choiceRadio = useChoice(openFood.choice);
   const isEditing = openFood.index > -1;
 
-  
   function close() {
     // pass in empty arguments to setOpenFood. openFood will be empty,
     // thereby returning null in if statement below (and not our modal)
     setOpenFood();
   }
+
+  // if openFood is not set via hooks, then we exit and not display modal
   if (!openFood) return null;
-  
+
   const order = {
-    ...openFood, 
+    ...openFood,
     quantity: quantity.value,
-    toppings: (hasToppings(openFood) ? toppings.toppings : null),
+    toppings: hasToppings(openFood) ? toppings.toppings : null,
     choice: choiceRadio.value
-  }
-  
+  };
+
   function editOrder() {
     const newOrders = [...orders];
     newOrders[openFood.index] = order;
@@ -165,11 +164,16 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
               <Toppings {...toppings} />
             </>
           )}
-          {openFood.choices && <Choices openFood={openFood} choiceRadio={choiceRadio} />}
+          {openFood.choices && (
+            <Choices openFood={openFood} choiceRadio={choiceRadio} />
+          )}
         </DialogContent>
         <DialogFooter>
-          <ConfirmButton onClick={isEditing ? editOrder : addToOrder} disabled={openFood.choices && !choiceRadio.value} >
-            {isEditing ? `Update Order: ` : `Add to Order: `} 
+          <ConfirmButton
+            onClick={isEditing ? editOrder : addToOrder}
+            disabled={openFood.choices && !choiceRadio.value}
+          >
+            {isEditing ? `Update Order: ` : `Add to Order: `}
             {formatPrice(getPrice(order, openFood))}
           </ConfirmButton>
         </DialogFooter>

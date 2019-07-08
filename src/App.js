@@ -22,11 +22,9 @@ function App() {
     <>
       <GlobalStyle />
       <FoodDialog {...openFood} {...orders} />
-      {/* <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/> */}
       <Navbar {...openCart} {...orders}/>
       <Order {...orders} {...openFood} {...openCart}/>
       <Banner />
-      {/* <div>{openFood ? openFood.name : openFood}</div> */}
       <Menu {...openFood}/>
     </>
   );
