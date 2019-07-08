@@ -33,7 +33,7 @@ export const DialogFooter = styled.div`
   height: 60px;
   display: flex;
   justify-content: center;
-  background: white;
+  background: inherit;
 `;
 
 export const ConfirmButton = styled(Title)`

@@ -15,7 +15,7 @@ const OrderWrapper = styled.div`
   right: 0;
   top: 72px;
   width: 380px;
-  background-color: #fff;
+  background-color: floralwhite;
   height: calc(100% - 48px);
   z-index: 10;
   box-shadow: 4px 0px 5px 4px grey;
