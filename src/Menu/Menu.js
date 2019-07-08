@@ -21,6 +21,11 @@ const FoodPrice = styled.div`
   margin-top: 5px;
 `;
 
+const FoodHeader = styled.h1`
+  font-size: 38px;
+  margin-bottom: 5px;
+`;
+
 export function Menu({ setOpenFood }) {
   // console.log(foods);
   return (
@@ -28,7 +33,7 @@ export function Menu({ setOpenFood }) {
       {/* in our map, destructure out our key (section name) and the value (food array)  */}
       {Object.entries(foods).map(([sectionName, foods]) => (
         <>
-          <h1>{sectionName}</h1>
+          <FoodHeader>{sectionName}</FoodHeader>
           <FoodGrid>
             {foods.map(food => (
               <Food
