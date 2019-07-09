@@ -167,6 +167,7 @@ export function Order({
   loggedIn, 
   setOpenOrderDialog
 }) {
+  
   const subtotal = orders.reduce((total, order) => {
     return total + getPrice(order);
   }, 0);

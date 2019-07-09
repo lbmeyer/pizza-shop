@@ -5,7 +5,8 @@ export function useOrders() {
   
   const orderQty = orders.reduce((acc, currentValue) => {
     return acc + currentValue.quantity;
-  }, 0)
+  }, 0);
+  
 
   return {
     orders,
