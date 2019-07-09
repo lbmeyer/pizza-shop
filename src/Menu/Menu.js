@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { foods, formatPrice } from '../Data/FoodData';
 import { Food, FoodGrid, FoodLabel } from './FoodGrid';
@@ -27,16 +27,16 @@ const FoodHeader = styled.h1`
 `;
 
 export function Menu({ setOpenFood }) {
-  // console.log(foods);
   return (
     <MenuStyled>
       {/* in our map, destructure out our key (section name) and the value (food array)  */}
-      {Object.entries(foods).map(([sectionName, foods]) => (
-        <>
+      {Object.entries(foods).map(([sectionName, foods], index) => (
+        <Fragment key={index}>
           <FoodHeader>{sectionName}</FoodHeader>
           <FoodGrid>
-            {foods.map(food => (
+            {foods.map((food, index) => (
               <Food
+                key={index}
                 img={food.img}
                 onClick={() => {
                   setOpenFood(food);
@@ -49,7 +49,7 @@ export function Menu({ setOpenFood }) {
               </Food>
             ))}
           </FoodGrid>
-        </>
+        </Fragment>
       ))}
     </MenuStyled>
   );

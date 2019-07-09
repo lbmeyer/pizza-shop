@@ -25,7 +25,6 @@ export function useAuthentication() {
     auth.onAuthStateChanged(function(user){
       if(user) {
         setAuthenticated(user);
-        console.log(user);
         
       } else {
         setAuthenticated(); // set authenticated to null (no useer)

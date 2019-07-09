@@ -84,20 +84,6 @@ const DialogBannerName = styled(FoodLabel)`
 
 const pricePerTopping = 0.5;
 
-// const defaultToppings = [
-//   {name: "Extra Cheese1", checked: false},
-//   {name: "Pepperoni", checked: false},
-//   {name: "Sausage", checked: false},
-//   {name: "Onions", checked: false},
-//   {name: "Peppers", checked: false},
-//   {name: "Pineapple", checked: false},
-//   {name: "Ham", checked: false},
-//   {name: "Spinach", checked: false},
-//   {name: "Artichokes", checked: false},
-//   {name: "Mushrooms", checked: false},
-//   {name: "Anchovies", checked: false},
-// ]
-
 export function getPrice(order) {
   // if order has toppings, we add up all the costs of toppings + cost of pizza.
   // if not, orderPrice is simply the cost of non-pizza item

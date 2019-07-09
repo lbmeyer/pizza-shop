@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 
 const CursorPointer = `cursor: pointer`;
@@ -18,8 +18,8 @@ export function Choices({openFood, choiceRadio}) {
   return (
     <>
       <h3>Choose One</h3>
-      {openFood.choices.map(choice => (
-        <>
+      {openFood.choices.map((choice, index) => (
+        <Fragment key={index}>
           <RadioInput
             type="radio"
             id={choice}
@@ -28,8 +28,8 @@ export function Choices({openFood, choiceRadio}) {
             checked={choiceRadio.value === choice}
             onChange={choiceRadio.onChange}
           />
-          <Label for={choice}> {choice}{" "} </Label>{" "}
-        </>
+          <Label htmlFor={choice}> {choice}{" "} </Label>{" "}
+        </Fragment>
       ))}
     </>
   )
