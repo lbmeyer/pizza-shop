@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
 import { pizzaRed } from '../Styles/colors';
 import { Title } from '../Styles/title';
-import { formatPrice } from '../Data/FoodData';
+import { formatPrice } from '../Utils/Utils';
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
 import { Toppings } from './Toppings';

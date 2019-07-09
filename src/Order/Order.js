@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { formatPrice } from '../Data/FoodData';
+import { formatPrice } from '../Utils/Utils';
 import {
   DialogContent,
   DialogFooter,

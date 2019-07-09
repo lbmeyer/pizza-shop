@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { foods, formatPrice } from '../Data/FoodData';
+import { foods } from '../Data/FoodData';
+import { formatPrice } from '../Utils/Utils';
 import { Food, FoodGrid, FoodLabel } from './FoodGrid';
 import { pizzaRed } from '../Styles/colors';
-
-// import { foods } from "../Data/FoodData";
-// import { Food, FoodGrid, FoodLabel } from "./FoodGrid";
-// import { formatPrice } from "../Data/FoodData";
 
 const MenuStyled = styled.div`
   /* height: 1000px; */
