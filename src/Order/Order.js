@@ -121,6 +121,18 @@ const DeleteIcon = styled.svg`
   }
 `;
 
+const BasketContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const EmptyBasketIcon = styled.svg`
+  width: 100px;
+  fill: grey;
+`;
+
 function sendOrder(orders, { email, displayName }, total) {
   console.log('orders', orders);
 
@@ -185,7 +197,13 @@ export function Order({
     <OrderWrapper isOpen={isOpen}>
       <CloseOrderBtn onClick={toggleOpen}>x</CloseOrderBtn>
       {orders.length === 0 ? (
-        <OrderContent>Your Order's looking pretty empty</OrderContent>
+        <OrderContent>
+          <BasketContainer>
+            <EmptyBasketIcon viewBox="0 0 24 24">
+              <path d="M10 21.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.305-15l-3.432 12h-10.428l-3.777-9h-2.168l4.615 11h13.239l3.474-12h1.929l.743-2h-4.195zm-13.805-4c6.712 1.617 7 9 7 9h2l-4 4-4-4h2s.94-6.42-3-9z"/>
+            </EmptyBasketIcon>
+          </BasketContainer>
+        </OrderContent>
       ) : (
         <OrderContent>
           <OrderContainer>
