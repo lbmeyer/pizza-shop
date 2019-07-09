@@ -120,7 +120,7 @@ const DeleteIcon = styled.svg`
   }
 `;
 
-export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen }) {
+export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, login, loggedIn }) {
   const subtotal = orders.reduce((total, order) => {
     return total + getPrice(order);
   }, 0);
@@ -206,7 +206,13 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen }) {
         </OrderContent>
       )}
       <OrderFooter>
-        <ConfirmButton>Confirm</ConfirmButton>
+        <ConfirmButton onClick={() => {
+          if (loggedIn) {
+            console.log('logged in');
+          } else {
+            login();
+          }
+        }}>Checkout</ConfirmButton>
       </OrderFooter>
     </OrderWrapper>
   );
