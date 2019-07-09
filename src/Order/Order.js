@@ -14,7 +14,7 @@ const database = window.firebase.database();
 const OrderWrapper = styled.div`
   position: fixed;
   right: 0;
-  top: 72px;
+  top: 65px;
   width: 380px;
   background-color: floralwhite;
   height: calc(100% - 48px);
@@ -23,9 +23,11 @@ const OrderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   transform: translateX(380px);
-  transition: transform .3s ease-in;
+  transition: transform 0.3s ease-in;
 
-  ${({isOpen}) => isOpen && `
+  ${({ isOpen }) =>
+    isOpen &&
+    `
     transform: translateX(0);
   `}
 `;
@@ -42,7 +44,7 @@ const EditMessage = styled.div`
   top: -10px;
   left: 5px;
   opacity: 0;
-  color: #ff5722
+  color: #ff5722;
 `;
 
 const OrderContainer = styled.div`
@@ -66,7 +68,6 @@ const OrderContainer = styled.div`
   `}
 `;
 
-
 const OrderItem = styled.div`
   position: relative;
   padding: 10px;
@@ -87,8 +88,8 @@ const DetailItem = styled.div`
 `;
 
 const OrderFooter = styled(DialogFooter)`
-    bottom: 40px;
-    position: relative;
+  bottom: 40px;
+  position: relative;
 `;
 
 const CloseOrderBtn = styled.div`
@@ -114,16 +115,16 @@ const DeleteIcon = styled.svg`
   width: 20px;
   fill: #777;
   cursor: pointer;
-  transition: all .2s linear;
+  transition: all 0.2s linear;
 
   &:hover {
     fill: red;
   }
 `;
 
-function sendOrder(orders, {email, displayName}) {
+function sendOrder(orders, { email, displayName }) {
   console.log('orders', orders);
-  
+
   const newOrderRef = database.ref('orders').push();
   const newOrders = orders.map(order => {
     return Object.keys(order).reduce((acc, orderKey) => {
@@ -135,8 +136,8 @@ function sendOrder(orders, {email, displayName}) {
         return {
           ...acc,
           [orderKey]: order[orderKey]
-          .filter(({ checked }) => checked)
-          .map(({ name }) => name)
+            .filter(({ checked }) => checked)
+            .map(({ name }) => name)
         };
       }
       return {
@@ -144,7 +145,6 @@ function sendOrder(orders, {email, displayName}) {
         [orderKey]: order[orderKey]
       };
     }, {});
-    
   });
 
   console.log(newOrders);
@@ -154,10 +154,19 @@ function sendOrder(orders, {email, displayName}) {
     order: newOrders,
     email,
     displayName
-  })
+  });
 }
 
-export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, login, loggedIn }) {
+export function Order({
+  orders,
+  setOrders,
+  setOpenFood,
+  isOpen,
+  toggleOpen,
+  login,
+  loggedIn, 
+  setOpenOrderDialog
+}) {
   const subtotal = orders.reduce((total, order) => {
     return total + getPrice(order);
   }, 0);
@@ -171,7 +180,6 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, logi
     setOrders(newOrders);
   };
 
-
   return (
     <OrderWrapper isOpen={isOpen}>
       <CloseOrderBtn onClick={toggleOpen}>x</CloseOrderBtn>
@@ -179,7 +187,9 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, logi
         <OrderContent>Your Order's looking pretty empty</OrderContent>
       ) : (
         <OrderContent>
-          <OrderContainer><OrderHeader>Your Order:</OrderHeader> </OrderContainer>{' '}
+          <OrderContainer>
+            <OrderHeader>Your Order:</OrderHeader>{' '}
+          </OrderContainer>{' '}
           {orders.map((order, index) => (
             <OrderContainer editable>
               <OrderItem
@@ -201,13 +211,13 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, logi
                   }}
                 >
                   <DeleteIcon viewBox="0 0 24 24">
-                    <path d="M18.5 15c-2.484 0-4.5 2.015-4.5 4.5s2.016 4.5 4.5 4.5c2.482 0 4.5-2.015 4.5-4.5s-2.018-4.5-4.5-4.5zm2.5 5h-5v-1h5v1zm-5-11v4.501c-.748.313-1.424.765-2 1.319v-5.82c0-.552.447-1 1-1s1 .448 1 1zm-4 0v10c0 .552-.447 1-1 1s-1-.448-1-1v-10c0-.552.447-1 1-1s1 .448 1 1zm1.82 15h-11.82v-18h2v16h8.502c.312.749.765 1.424 1.318 2zm-6.82-16c.553 0 1 .448 1 1v10c0 .552-.447 1-1 1s-1-.448-1-1v-10c0-.552.447-1 1-1zm14-4h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711v2zm-1 2v7.182c-.482-.115-.983-.182-1.5-.182l-.5.025v-7.025h2z"/>
+                    <path d="M18.5 15c-2.484 0-4.5 2.015-4.5 4.5s2.016 4.5 4.5 4.5c2.482 0 4.5-2.015 4.5-4.5s-2.018-4.5-4.5-4.5zm2.5 5h-5v-1h5v1zm-5-11v4.501c-.748.313-1.424.765-2 1.319v-5.82c0-.552.447-1 1-1s1 .448 1 1zm-4 0v10c0 .552-.447 1-1 1s-1-.448-1-1v-10c0-.552.447-1 1-1s1 .448 1 1zm1.82 15h-11.82v-18h2v16h8.502c.312.749.765 1.424 1.318 2zm-6.82-16c.553 0 1 .448 1 1v10c0 .552-.447 1-1 1s-1-.448-1-1v-10c0-.552.447-1 1-1zm14-4h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711v2zm-1 2v7.182c-.482-.115-.983-.182-1.5-.182l-.5.025v-7.025h2z" />
                   </DeleteIcon>
                 </div>
               </OrderItem>
               {order.toppings ? (
                 <DetailItem>
-                  <div/>
+                  <div />
                   <div>
                     {order.toppings
                       .filter(topping => topping.checked)
@@ -216,11 +226,12 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, logi
                   </div>
                 </DetailItem>
               ) : null}
-              {order.choice && 
+              {order.choice && (
                 <DetailItem>
-                  <div/>
+                  <div />
                   <div>{order.choice}</div>
-                </DetailItem>}
+                </DetailItem>
+              )}
             </OrderContainer>
           ))}
           <OrderContainer>
@@ -243,13 +254,18 @@ export function Order({ orders, setOrders, setOpenFood, isOpen, toggleOpen, logi
         </OrderContent>
       )}
       <OrderFooter>
-        <ConfirmButton onClick={() => {
-          if (loggedIn) {
-            sendOrder(orders, loggedIn);
-          } else {
-            login();
-          }
-        }}>Checkout</ConfirmButton>
+        {orders.length > 0 && <ConfirmButton
+          onClick={() => {
+            if (loggedIn) {
+              setOpenOrderDialog(true);
+              sendOrder(orders, loggedIn);
+            } else {
+              login();
+            }
+          }}
+        >
+          Checkout
+        </ConfirmButton>}
       </OrderFooter>
     </OrderWrapper>
   );

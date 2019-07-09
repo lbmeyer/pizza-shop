@@ -10,6 +10,8 @@ import { useOrders } from './Hooks/useOrders';
 import { useTitle } from './Hooks/useTitle';
 import useToggle from './Hooks/useToggle';
 import { useAuthentication } from './Hooks/useAuthentication';
+import { OrderDialog } from './Order/OrderDialog';
+import { useOrderDialog } from './Hooks/useOrderDialog';
 
 function App() {
   // const [isOpen, setIsOpen] = useToggle(false);
@@ -17,14 +19,16 @@ function App() {
   const openFood = useOpenFood();
   const orders = useOrders();
   const auth = useAuthentication();
+  const orderDialog = useOrderDialog();
   useTitle({...openFood, ...orders});
 
   return (
     <>
       <GlobalStyle />
+      <OrderDialog {...orderDialog} {...orders} {...openCart} />
       <FoodDialog {...openFood} {...orders} />
       <Navbar {...openCart} {...orders} {...auth} />
-      <Order {...orders} {...openFood} {...openCart} {...auth} />
+      <Order {...orders} {...openFood} {...openCart} {...auth} {...orderDialog} />
       <Banner />
       <Menu {...openFood}/>
     </>
