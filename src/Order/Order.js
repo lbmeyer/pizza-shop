@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { formatPrice } from '../Utils/Utils';
+import { formatPrice, getPrice } from '../Utils/Utils';
 import {
   DialogContent,
   DialogFooter,
   ConfirmButton,
-  getPrice
 } from '../FoodDialog/FoodDialog';
 import { pizzaRed } from '../Styles/colors';
 
@@ -122,7 +121,7 @@ const DeleteIcon = styled.svg`
   }
 `;
 
-function sendOrder(orders, { email, displayName }) {
+function sendOrder(orders, { email, displayName }, total) {
   console.log('orders', orders);
 
   const newOrderRef = database.ref('orders').push();
@@ -153,7 +152,8 @@ function sendOrder(orders, { email, displayName }) {
   newOrderRef.set({
     order: newOrders,
     email,
-    displayName
+    displayName,
+    total
   });
 }
 
@@ -168,8 +168,8 @@ export function Order({
   setOpenOrderDialog
 }) {
   
-  const subtotal = orders.reduce((total, order) => {
-    return total + getPrice(order);
+  const subtotal = orders.reduce((acc, order) => {
+    return acc + getPrice(order);
   }, 0);
 
   const tax = subtotal * 0.07;
@@ -259,7 +259,7 @@ export function Order({
           onClick={() => {
             if (loggedIn) {
               setOpenOrderDialog(true);
-              sendOrder(orders, loggedIn);
+              sendOrder(orders, loggedIn, total);
             } else {
               login();
             }

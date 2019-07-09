@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FoodLabel } from '../Menu/FoodGrid';
 import { pizzaRed } from '../Styles/colors';
 import { Title } from '../Styles/title';
-import { formatPrice } from '../Utils/Utils';
+import { formatPrice, getPrice } from '../Utils/Utils';
 import { QuantityInput } from './QuantityInput';
 import { useQuantity } from '../Hooks/useQuantity';
 import { Toppings } from './Toppings';
@@ -82,19 +82,6 @@ const DialogBannerName = styled(FoodLabel)`
   bottom: inherit;
 `;
 
-const pricePerTopping = 0.5;
-
-export function getPrice(order) {
-  // if order has toppings, we add up all the costs of toppings + cost of pizza.
-  // if not, orderPrice is simply the cost of non-pizza item
-  const orderPrice = order.toppings
-    ? order.price +
-      order.toppings.filter(topping => topping.checked).length * pricePerTopping
-    : order.price;
-
-  return order.quantity * orderPrice;
-}
-
 // only show toppings if order pizza
 function hasToppings(food) {
   // debugger;
@@ -160,7 +147,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }) {
             disabled={openFood.choices && !choiceRadio.value}
           >
             {isEditing ? `Update Order: ` : `Add to Order: `}
-            {formatPrice(getPrice(order, openFood))}
+            {formatPrice(getPrice(order))}
           </ConfirmButton>
         </DialogFooter>
       </Dialog>

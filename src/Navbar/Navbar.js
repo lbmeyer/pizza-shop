@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { pizzaRed } from '../Styles/colors';
 import { Title } from '../Styles/title';
+import { getOrderQty } from '../Utils/Utils';
 
 const NavbarContainer = styled.div`
   background-color: ${pizzaRed};
@@ -95,7 +96,10 @@ const LogoutButton = styled.span`
   }
 `;
 
-export function Navbar({ isOpen, toggleOpen, orderQty, login, logout, loggedIn }) {
+export function Navbar({ isOpen, toggleOpen, login, logout, loggedIn, orders }) {
+
+  const orderQty = getOrderQty(orders);
+
   return (
     <NavbarContainer>
       <NavInner>
